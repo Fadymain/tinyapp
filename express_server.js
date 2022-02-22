@@ -46,3 +46,11 @@ app.get("/hello", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
+
+function generateRandomString() {
+  const minVal = 35 ** 5;
+  const randVal = Math.floor(Math.random() * minVal) + minVal;
+  return randVal.toString(35);
+}
+
+generateRandomString();
