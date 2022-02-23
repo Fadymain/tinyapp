@@ -11,9 +11,9 @@
       </div>
     </div>
     <div>
-      <%= username %>
+      <%= user_id %>
     </div>
-    <% if(!username) { %>
+    <% if(!user_id) { %>
     <form method="POST" action="/login">
       <input type="text" name="username">
       <button type="submit" class="btn btn-primary">Login</button>
