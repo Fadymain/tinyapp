@@ -42,6 +42,11 @@ app.post("/logout", (req, res) => {
   res.redirect("/urls");
 });
 
+app.get("/register", (req, res) => {
+  const templateVars = { urls: urlDatabase, username: req.cookies["username"]};
+  res.render("registration", templateVars)
+})
+
 app.post("/urls", (req, res) => {
   console.log(req.body.longURL);  
   const shortURL = generateRandomString();
