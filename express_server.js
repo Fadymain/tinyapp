@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
 const PORT = 8080; // default port 8080
+const cookieParser = require("cookie-parser");
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
+
 
 app.set("view engine", "ejs");
 
@@ -46,7 +48,6 @@ app.post("/urls/:shortURL/edit", (req, res) => {
 })
 
 app.post("/urls/:shortURL/update", (req, res) => {
-  console.log(req.body);
   const shortURL = req.params.shortURL;
   const newUrl = req.body.newUrl;
   urlDatabase[shortURL] = newUrl;
