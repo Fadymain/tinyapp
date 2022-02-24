@@ -14,15 +14,22 @@
       <%= user_id %>
     </div>
     <% if(!user_id) { %>
-    <form method="POST" action="/login">
-      <input type="text" name="username">
+      <div class="text-white">
+        <a href="/login" class="text-white">Login</a> / <a href="/register" class="text-white">Register</a>
+      </div>
+    <!-- <form method="GET" action="/login">
       <button type="submit" class="btn btn-primary">Login</button>
     </form>
+    <div>
+      <form method="GET" action="/register">
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+    </div> -->
     <% } else { %>
     <form method="POST" action="/logout">
-      <input type="text" name="username">
       <button type="submit" class="btn btn-dark">Logout</button>
     </form>
     <% } %>
+    
   </nav>
 </header>
