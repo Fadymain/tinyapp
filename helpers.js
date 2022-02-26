@@ -18,7 +18,7 @@ const getUserWithEmail = function(email, users) {
       return users[user];
     }
   }
-  return null
+  return undefined
 }
 
 const urlsForUser = function (id) {
