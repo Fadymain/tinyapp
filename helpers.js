@@ -1,5 +1,6 @@
-// const {} = require(".express_server/")
-const {users, urlDatabase} = require("./express_server");
+const {users, urlDatabase} = require("./database");
+const required = require("./express_server");
+
 
 
 const emailVerifier = function (email) {
@@ -18,6 +19,7 @@ const getUserWithEmail = function(email, users) {
       return users[user];
     }
   }
+  
   return undefined
 }
 
@@ -27,6 +29,7 @@ const urlsForUser = function (id) {
     if (urlDatabase[url].userId === id) {
       userUrls[url] = urlDatabase[url];
     }
+
   }
   return userUrls;
 }
