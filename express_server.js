@@ -14,6 +14,8 @@ app.use(cookieParser());
 const bcrypt = require("bcryptjs");
 // req.session.user_id = "some value";
 
+const {emailVerifier, getUserWithEmail, urlsForUser} = require("./helpers");
+
 
 const bodyParser = require("body-parser");
 const req = require("express/lib/request");
@@ -50,43 +52,43 @@ app.get("/", (req, res) => {
   res.send("Hello!");
 });
 
-const emailVerifier = function (email) {
-  for (const key in users) {
+// const emailVerifier = function (email) {
+//   for (const key in users) {
     
-    if (users[key].email === email) {
-      return true;
-    }
-  } 
-  return false;
-}
+//     if (users[key].email === email) {
+//       return true;
+//     }
+//   } 
+//   return false;
+// }
 
-const authUser = function (users, email, password) {
-  for (let user in users) {
-    if (users[user].email === email && users[user].password === password) {
-      return users[user];
-    }
-  }
-  return false;
-}
+// const authUser = function (users, email, password) {
+//   for (let user in users) {
+//     if (users[user].email === email && users[user].password === password) {
+//       return users[user];
+//     }
+//   }
+//   return false;
+// }
 
-const getUserWithEmail = function(email) {
-  for (let user in users) {
-    if (users[user].email === email) {
-      return users[user];
-    }
-  }
-  return null
-}
+// const getUserWithEmail = function(email, usersDb) {
+//   for (let user in usersDb) {
+//     if (usersDb[user].email === email) {
+//       return usersDb[user];
+//     }
+//   }
+//   return null
+// }
 
-const urlsForUser = function (id) {
-  let userUrls = {};
-  for (let url in urlDatabase) {
-    if (urlDatabase[url].userId === id) {
-      userUrls[url] = urlDatabase[url];
-    }
-  }
-  return userUrls;
-}
+// const urlsForUser = function (id) {
+//   let userUrls = {};
+//   for (let url in urlDatabase) {
+//     if (urlDatabase[url].userId === id) {
+//       userUrls[url] = urlDatabase[url];
+//     }
+//   }
+//   return userUrls;
+// }
 
 app.post("/register", (req, res) => {
   const newId = generateRandomString();
@@ -125,7 +127,7 @@ app.post("/login", (req, res) => {
   if (dEmail === "" || pasW === "") {
     return res.send("Email or password is empty");
   }
-  const user = getUserWithEmail(dEmail)
+  const user = getUserWithEmail(dEmail, users)
   if (user)  {
     const hashedPassword = user.password;
     if (!bcrypt.compareSync(pasW, hashedPassword)) {
@@ -137,23 +139,6 @@ app.post("/login", (req, res) => {
   } else {
     return res.status(403).send("User does not exist");
   }
-
-  
-
-  // const verifyEmail = emailVerifier(dEmail);
-  // if (!verifyEmail) {
-  //   return res.status(403).send("Email or password is wrong")
-  // } 
-  // const passChecker = authUser(users, dEmail, pasW);
-  // if (!passChecker) {
-  //   return res.redirect("/login");
-  // }
-  // const id = passChecker.id;
-  
-  // // console.log("Test:", req)
-  // // console.log(res.cookies["user_id"]);
-  // res.cookie("user_id", id);
-  // res.redirect("/urls");
 });
 
 app.get("/login", (req, res) => {
@@ -282,3 +267,5 @@ function generateRandomString() {
   const randVal = Math.floor(Math.random() * minVal) + minVal;
   return randVal.toString(35);
 }
+
+module.exports = {users, urlDatabase}
