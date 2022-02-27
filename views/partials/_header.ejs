@@ -11,9 +11,9 @@
       </div>
     </div>
     <div>
-      <%= user_id %>
+      
     </div>
-    <% if(!user_id) { %>
+    <% if(!user) { %>
       <div class="text-white">
         <a href="/login" class="text-white">Login</a> / <a href="/register" class="text-white">Register</a>
       </div>
@@ -26,6 +26,7 @@
       </form>
     </div> -->
     <% } else { %>
+      logged in as <%= user.email %>
     <form method="POST" action="/logout">
       <button type="submit" class="btn btn-dark">Logout</button>
     </form>
