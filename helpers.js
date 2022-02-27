@@ -16,7 +16,7 @@ const emailVerifier = function (email) {
 const getUserWithEmail = function(email, users) {
   for (let user in users) {
     if (users[user].email === email) {
-      return users[user];
+      return user;
     }
   }
   
@@ -34,4 +34,10 @@ const urlsForUser = function (id) {
   return userUrls;
 }
 
-module.exports = { emailVerifier, getUserWithEmail, urlsForUser}
+function generateRandomString() {
+  const minVal = 35 ** 5;
+  const randVal = Math.floor(Math.random() * minVal) + minVal;
+  return randVal.toString(35);
+};
+
+module.exports = { emailVerifier, getUserWithEmail, urlsForUser, generateRandomString}
